@@ -2,7 +2,7 @@ import React from 'react'
 import './Square.css'
 
 interface Props {
-  value: string
+  value: number
 }
 
 interface State {}

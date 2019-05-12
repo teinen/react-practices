@@ -6,7 +6,7 @@ const Board: React.FC = () => {
   const status = 'Next player: X'
 
   const renderSquare = (i: number) => {
-    return <Square value="1" />
+    return <Square value={i} />
   }
 
   return (
