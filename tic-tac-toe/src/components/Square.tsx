@@ -1,11 +1,20 @@
 import React from 'react'
+import './Square.css'
 
-const Square: React.FC = () => {
-  return (
-    <button className="square">
-      {/* TODO */}
-    </button>
-  )
+interface Props {
+  value: string
+}
+
+interface State {}
+
+class Square extends React.Component<Props, State> {
+  render() {
+    return (
+      <button className="square">
+        { this.props.value }
+      </button>
+    )
+  }
 }
 
 export default Square

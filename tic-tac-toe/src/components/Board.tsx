@@ -1,11 +1,12 @@
 import React from 'react'
 import Square from './Square'
+import './Board.css'
 
 const Board: React.FC = () => {
   const status = 'Next player: X'
 
-  const renderSquare = (i) => {
-    return <Square />
+  const renderSquare = (i: number) => {
+    return <Square value="1" />
   }
 
   return (
