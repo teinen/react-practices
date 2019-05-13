@@ -1,29 +1,28 @@
 import React from 'react'
 import './Square.css'
 
+type SquareType = number | string
+
 interface Props {
-  value: number
+  value: SquareType,
+  onClick: () => void
 }
 
-interface State {
-  value: string
-}
+interface State {}
 
 class Square extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
-    this.state = {
-      value: ''
-    }
+    this.state = {}
   }
 
   render() {
     return (
       <button
         className="square"
-        onClick={() => { this.setState({ value: 'X' })}}
+        onClick={() => { this.props.onClick() }}
       >
-        { this.state.value }
+        { this.props.value }
       </button>
     )
   }

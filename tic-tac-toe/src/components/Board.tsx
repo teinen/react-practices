@@ -5,7 +5,7 @@ import './Board.css'
 interface Props {}
 
 interface State {
-  squares: Array<number>
+  squares: Array<number | string>
 }
 
 class Board extends React.Component<Props, State> {
@@ -18,8 +18,19 @@ class Board extends React.Component<Props, State> {
 
   status = 'Next player: X'
 
+  clickHandler(i: number): void {
+    const squares = this.state.squares.slice()
+    squares[i] = 'X'
+    this.setState({ squares: squares })
+  }
+
   renderSquare(i: number) {
-    return <Square value={ this.state.squares[i] } />
+    return (
+      <Square
+        value={ this.state.squares[i] }
+        onClick={ () => this.clickHandler(i) }
+      />
+    )
   }
 
   render() {
