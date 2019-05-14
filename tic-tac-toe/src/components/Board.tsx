@@ -5,23 +5,26 @@ import './Board.css'
 interface Props {}
 
 interface State {
-  squares: Array<number | string>
+  squares: Array<number | string>,
+  xIsNext: boolean
 }
 
 class Board extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = {
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null),
+      xIsNext: true
     }
   }
 
-  status = 'Next player: X'
-
   clickHandler(i: number): void {
     const squares = this.state.squares.slice()
-    squares[i] = 'X'
-    this.setState({ squares: squares })
+    squares[i] = this.state.xIsNext ? 'X' : 'O'
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext
+    })
   }
 
   renderSquare(i: number) {
@@ -34,11 +37,11 @@ class Board extends React.Component<Props, State> {
   }
 
   render() {
+    const status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`
+
     return (
       <div>
-        <div className="status">
-          { this.status }
-        </div>
+        <div className="status">{ status }</div>
         <div className="board-row">
           { this.renderSquare(0) }
           { this.renderSquare(1) }
