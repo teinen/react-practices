@@ -1,31 +1,20 @@
 import React from 'react'
 import './Square.css'
 
-type SquareType = number | string
-
-interface Props {
-  value: SquareType,
+type Props = {
+  value: string | number,
   onClick: () => void
 }
 
-interface State {}
-
-class Square extends React.Component<Props, State> {
-  constructor(props: any) {
-    super(props)
-    this.state = {}
-  }
-
-  render() {
-    return (
-      <button
-        className="square"
-        onClick={() => { this.props.onClick() }}
-      >
-        { this.props.value }
-      </button>
-    )
-  }
+const Square: React.FC<Props> = (props: Props) => {
+  return (
+    <button
+      className="square"
+      onClick={() => { props.onClick() }}
+    >
+      { props.value }
+    </button>
+  )
 }
 
 export default Square
