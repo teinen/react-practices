@@ -1,0 +1,29 @@
+.todo-input-container {
+  display: flex;
+  justify-content: center;
+}
+
+.todo-input {
+  width: 250px;
+  height: 16px;
+  padding: 8px;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  margin-right: 8px;
+}
+
+.todo-add-btn {
+  width: 72px;
+  border-radius: 5px;
+  border: 2px solid #0080ff;
+  color: #0080ff;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+
+.todo-add-btn:hover {
+  background: #0080ff;
+  color: #ffffff;
+}
