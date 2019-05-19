@@ -1,4 +1,11 @@
 .todo-app {
-  display: flex;
-  justify-content: center;
+  display: block;
+  max-width: 900px;
+  margin: auto;
+  padding: 10px;
+  background: #f6f6f6;
+}
+
+.todo-app-title {
+  text-align: center;
 }
