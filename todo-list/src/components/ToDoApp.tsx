@@ -1,28 +1,80 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
 import '../style/ToDoApp.css'
 import ToDoInput from './ToDoInput'
 
-const ToDoApp: React.FC = () => {
-  const defaultTodos: Array<Object> = [
+type ToDo = {
+  name: string,
+  completed: boolean
+}
+
+interface State {
+  todos: Array<ToDo>
+}
+
+type Action =
+  | { type: 'ADD_TODO', todo: ToDo }
+  | { type: 'REMOVE_TODO', index: number }
+  | { type: 'TOGGLE_STATUS', index: number, completed: boolean }
+
+const initialState: State = {
+  todos: [
     {
-      title: 'Sample todo',
-      completed: true
+      name: 'Sample todo',
+      completed: false
     }
   ]
+}
 
-  const [todos, updateTodos] = useState(defaultTodos)
-
-  const clickHandler = (newTodo: string): void => {
-    console.log(newTodo)
+const ToDoApp: React.FC = () => {
+  const todoReducer = (state: State, action: Action): State => {
+    switch(action.type) {
+      case 'ADD_TODO':
+        state.todos.push(action.todo)
+        return { todos: state.todos }
+      case 'REMOVE_TODO':
+        state.todos.splice(action.index, 1)
+        return { todos: state.todos }
+      case 'TOGGLE_STATUS':
+        state.todos[action.index].completed = action.completed
+        return { todos: state.todos }
+    }
   }
+
+  const [
+    state,
+    dispatch
+  ] = useReducer(todoReducer, initialState)
+
+  const addTodo = (newTodoName: string): void => {
+    const newTodo: ToDo = {
+      name: newTodoName,
+      completed: false
+    }
+    dispatch({ type: 'ADD_TODO', todo: newTodo })
+  }
+
+  const renderTodos = state.todos.map((todo, index) => {
+    return (
+      <li key={index}>
+        {todo.name}, state: {todo.completed.toString()}
+        <button onClick={() => { dispatch({ type: 'REMOVE_TODO', index: index }) }}>
+          Remove
+        </button>
+      </li>
+    )
+  })
 
   return (
     <div className="todo-app">
       <h1 className="todo-app-title">React ToDo App</h1>
 
       <ToDoInput
-        onClick={(newTodo) => { clickHandler(newTodo) }}
+        onClick={(newTodoName) => { addTodo(newTodoName) }}
       />
+
+      <ul>
+        {renderTodos}
+      </ul>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import '../style/ToDoInput.css'
 
 interface Props {
@@ -20,9 +20,7 @@ const ToDoInput: React.FC<Props> = (props) => {
         type="text"
         placeholder="Input new todo"
         className="todo-input"
-      >
-
-      </input>
+      />
       <button
         className="todo-add-btn"
         onClick={() => { clickHandler(inputRef.current.value) }}
