@@ -29,14 +29,19 @@ const ToDoApp: React.FC = () => {
   const todoReducer = (state: IState, action: Action): IState => {
     switch(action.type) {
       case 'ADD_TODO':
-        state.todos.push(action.todo)
-        return { todos: state.todos }
+        const newTodos = [
+          ...state.todos,
+          action.todo
+        ]
+        return { todos: newTodos }
       case 'REMOVE_TODO':
         state.todos.splice(action.index, 1)
         return { todos: state.todos }
       case 'TOGGLE_STATUS':
         state.todos[action.index].completed = action.completed
         return { todos: state.todos }
+      default:
+        return state
     }
   }
 
