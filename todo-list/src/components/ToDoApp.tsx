@@ -7,7 +7,7 @@ type ToDo = {
   completed: boolean
 }
 
-interface State {
+interface IState {
   todos: Array<ToDo>
 }
 
@@ -16,7 +16,7 @@ type Action =
   | { type: 'REMOVE_TODO', index: number }
   | { type: 'TOGGLE_STATUS', index: number, completed: boolean }
 
-const initialState: State = {
+const initialState: IState = {
   todos: [
     {
       name: 'Sample todo',
@@ -26,7 +26,7 @@ const initialState: State = {
 }
 
 const ToDoApp: React.FC = () => {
-  const todoReducer = (state: State, action: Action): State => {
+  const todoReducer = (state: IState, action: Action): IState => {
     switch(action.type) {
       case 'ADD_TODO':
         state.todos.push(action.todo)

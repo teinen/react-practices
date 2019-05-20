@@ -1,18 +1,14 @@
 import React, { useRef } from 'react'
 import '../style/ToDoInput.css'
 
-interface Props {
+interface IProps {
   onClick: (todo: string) => void
 }
 
-const ToDoInput: React.FC<Props> = (props) => {
+const ToDoInput: React.FC<IProps> = (props) => {
   const inputRef = useRef({} as HTMLInputElement)
 
-  const clickHandler = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newTodo: string
-  ): void => {
-    e.preventDefault()
+  const clickHandler = (newTodo: string): void => {
     props.onClick(newTodo)
     inputRef.current.value = ''
   }
@@ -27,7 +23,7 @@ const ToDoInput: React.FC<Props> = (props) => {
       />
       <button
         className="todo-add-btn"
-        onClick={(e) => { clickHandler(e, inputRef.current.value) }}
+        onClick={(e) => { clickHandler(inputRef.current.value) }}
       >
         Add
       </button>
