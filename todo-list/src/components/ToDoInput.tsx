@@ -5,7 +5,7 @@ interface IProps {
   onClick: (todo: string) => void
 }
 
-const ToDoInput: React.FC<IProps> = (props) => {
+const ToDoInput: React.FC<IProps> = (props: IProps) => {
   const inputRef = useRef({} as HTMLInputElement)
 
   const clickHandler = (newTodo: string): void => {
@@ -23,7 +23,7 @@ const ToDoInput: React.FC<IProps> = (props) => {
       />
       <button
         className="todo-add-btn"
-        onClick={(e) => { clickHandler(inputRef.current.value) }}
+        onClick={() => { clickHandler(inputRef.current.value) }}
       >
         Add
       </button>

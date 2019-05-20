@@ -79,4 +79,4 @@ const ToDoApp: React.FC = () => {
   )
 }
 
-export default ToDoApp;
+export default ToDoApp
