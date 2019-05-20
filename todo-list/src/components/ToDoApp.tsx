@@ -53,11 +53,11 @@ const ToDoApp: React.FC = () => {
     dispatch({ type: 'ADD_TODO', todo: newTodo })
   }
 
-  const renderTodos = state.todos.map((todo, index) => {
+  const renderTodos = state.todos.map((todo, i) => {
     return (
-      <li key={index}>
+      <li key={i}>
         {todo.name}, state: {todo.completed.toString()}
-        <button onClick={() => { dispatch({ type: 'REMOVE_TODO', index: index }) }}>
+        <button onClick={() => { dispatch({ type: 'REMOVE_TODO', index: i }) }}>
           Remove
         </button>
       </li>

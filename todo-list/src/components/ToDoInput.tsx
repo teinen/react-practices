@@ -8,7 +8,11 @@ interface Props {
 const ToDoInput: React.FC<Props> = (props) => {
   const inputRef = useRef({} as HTMLInputElement)
 
-  const clickHandler = (newTodo: string): void => {
+  const clickHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    newTodo: string
+  ): void => {
+    e.preventDefault()
     props.onClick(newTodo)
     inputRef.current.value = ''
   }
@@ -23,7 +27,7 @@ const ToDoInput: React.FC<Props> = (props) => {
       />
       <button
         className="todo-add-btn"
-        onClick={() => { clickHandler(inputRef.current.value) }}
+        onClick={(e) => { clickHandler(e, inputRef.current.value) }}
       >
         Add
       </button>
