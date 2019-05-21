@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
 import '../style/ToDoApp.css'
 import ToDoInput from './ToDoInput'
+import ToDoList from './ToDoList'
 import { ToDo } from '../types'
 
 type State = {
@@ -54,17 +55,6 @@ const ToDoApp: React.FC = () => {
     dispatch({ type: 'ADD_TODO', todo: newTodo })
   }
 
-  const renderTodos = state.todos.map((todo, i) => {
-    return (
-      <li key={i}>
-        {todo.name}, state: {todo.completed.toString()}
-        <button onClick={() => { dispatch({ type: 'REMOVE_TODO', index: i }) }}>
-          Remove
-        </button>
-      </li>
-    )
-  })
-
   return (
     <div className="todo-app">
       <h1 className="todo-app-title">React ToDo App</h1>
@@ -73,9 +63,10 @@ const ToDoApp: React.FC = () => {
         onClick={(newTodoName) => { addTodo(newTodoName) }}
       />
 
-      <ul>
-        {renderTodos}
-      </ul>
+      <ToDoList
+        todos={state.todos}
+        onRemove={(i) => { dispatch({ type: 'REMOVE_TODO', index: i }) }}
+      />
     </div>
   )
 }
