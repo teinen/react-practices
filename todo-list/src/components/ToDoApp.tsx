@@ -1,11 +1,7 @@
 import React, { useReducer } from 'react'
 import '../style/ToDoApp.css'
 import ToDoInput from './ToDoInput'
-
-type ToDo = {
-  name: string,
-  completed: boolean
-}
+import { ToDo } from '../types'
 
 type State = {
   todos: Array<ToDo>
