@@ -1,11 +1,11 @@
 import React, { useRef } from 'react'
 import '../style/ToDoInput.css'
 
-interface IProps {
+type Props = {
   onClick: (todo: string) => void
 }
 
-const ToDoInput: React.FC<IProps> = (props: IProps) => {
+const ToDoInput: React.FC<Props> = (props: Props) => {
   const inputRef = useRef({} as HTMLInputElement)
 
   const clickHandler = (newTodo: string): void => {
