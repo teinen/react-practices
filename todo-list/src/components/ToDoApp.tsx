@@ -12,6 +12,7 @@ type Action =
   | { type: 'ADD_TODO', todo: ToDo }
   | { type: 'REMOVE_TODO', index: number }
   | { type: 'TOGGLE_STATUS', index: number, checked: boolean }
+  | { type: 'TOGGLE_ALL_STATUS', checked: boolean }
 
 const initialState: State = {
   todos: [
@@ -38,6 +39,13 @@ const ToDoApp: React.FC = () => {
       case 'TOGGLE_STATUS':
         state.todos[action.index].completed = action.checked
         return { todos: state.todos }
+      case 'TOGGLE_ALL_STATUS':
+        return { todos: state.todos.map(todo => {
+          todo.completed = action.checked
+          return todo
+        })}
+      default:
+        return state
     }
   }
 
@@ -61,6 +69,11 @@ const ToDoApp: React.FC = () => {
       <ToDoInput
         onClick={(newTodoName) => addTodo(newTodoName)}
       />
+
+      <input
+        type="checkbox"
+        onChange={(e) => dispatch({ type: 'TOGGLE_ALL_STATUS', checked: e.target.checked })}
+      />Check All ToDos
 
       <ToDoList
         todos={state.todos}

@@ -14,10 +14,11 @@ const ToDoList: React.FC<Props> = (props: Props) => {
       <li key={i}>
         <input
           type="checkbox"
+          checked={todo.completed}
           onChange={(e) => props.onToggleStatus(i, e.target.checked)}
         />
 
-        {todo.name}, state: {todo.completed.toString()}
+        { todo.name }
 
         <button onClick={() => props.onRemove(i)}>
           Remove
