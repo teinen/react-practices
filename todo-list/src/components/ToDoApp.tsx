@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import '../style/ToDoApp.css'
 import ToDoInput from './ToDoInput'
 import ToDoList from './ToDoList'
-import { ToDo } from '../types'
+import { ToDo } from '../types/todo'
 
 type State = {
   todos: Array<ToDo>
@@ -11,7 +11,7 @@ type State = {
 type Action =
   | { type: 'ADD_TODO', todo: ToDo }
   | { type: 'REMOVE_TODO', index: number }
-  | { type: 'TOGGLE_STATUS', index: number, completed: boolean }
+  | { type: 'TOGGLE_STATUS', index: number }
 
 const initialState: State = {
   todos: [
@@ -35,7 +35,7 @@ const ToDoApp: React.FC = () => {
         state.todos.splice(action.index, 1)
         return { todos: state.todos }
       case 'TOGGLE_STATUS':
-        state.todos[action.index].completed = action.completed
+        state.todos[action.index].completed = !state.todos[action.index].completed
         return { todos: state.todos }
       default:
         return state
@@ -66,6 +66,7 @@ const ToDoApp: React.FC = () => {
       <ToDoList
         todos={state.todos}
         onRemove={(i) => { dispatch({ type: 'REMOVE_TODO', index: i }) }}
+        onToggleStatus={(i) => { dispatch({ type: 'TOGGLE_STATUS', index: i }) }}
       />
     </div>
   )
