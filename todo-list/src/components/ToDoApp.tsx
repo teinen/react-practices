@@ -11,7 +11,7 @@ type State = {
 type Action =
   | { type: 'ADD_TODO', todo: ToDo }
   | { type: 'REMOVE_TODO', index: number }
-  | { type: 'TOGGLE_STATUS', index: number }
+  | { type: 'TOGGLE_STATUS', index: number, checked: boolean }
 
 const initialState: State = {
   todos: [
@@ -26,19 +26,18 @@ const ToDoApp: React.FC = () => {
   const todoReducer = (state: State, action: Action): State => {
     switch(action.type) {
       case 'ADD_TODO':
-        const newTodos = [
-          ...state.todos,
-          action.todo
-        ]
-        return { todos: newTodos }
+        return {
+          todos: [
+            ...state.todos,
+            action.todo
+          ]
+        }
       case 'REMOVE_TODO':
         state.todos.splice(action.index, 1)
         return { todos: state.todos }
       case 'TOGGLE_STATUS':
-        state.todos[action.index].completed = !state.todos[action.index].completed
+        state.todos[action.index].completed = action.checked
         return { todos: state.todos }
-      default:
-        return state
     }
   }
 
@@ -60,13 +59,13 @@ const ToDoApp: React.FC = () => {
       <h1 className="todo-app-title">React ToDo App</h1>
 
       <ToDoInput
-        onClick={(newTodoName) => { addTodo(newTodoName) }}
+        onClick={(newTodoName) => addTodo(newTodoName)}
       />
 
       <ToDoList
         todos={state.todos}
-        onRemove={(i) => { dispatch({ type: 'REMOVE_TODO', index: i }) }}
-        onToggleStatus={(i) => { dispatch({ type: 'TOGGLE_STATUS', index: i }) }}
+        onRemove={(i) => dispatch({ type: 'REMOVE_TODO', index: i })}
+        onToggleStatus={(i, checked) => dispatch({ type: 'TOGGLE_STATUS', index: i, checked: checked })}
       />
     </div>
   )
