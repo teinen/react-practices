@@ -13,6 +13,7 @@ type Action =
   | { type: 'REMOVE_TODO', index: number }
   | { type: 'TOGGLE_STATUS', index: number, checked: boolean }
   | { type: 'TOGGLE_ALL_STATUS', checked: boolean }
+  | { type: 'EDIT_TODO', index: number, name: string }
 
 const initialState: State = {
   todos: [
@@ -44,6 +45,9 @@ const ToDoApp: React.FC = () => {
           todo.completed = action.checked
           return todo
         })}
+      case 'EDIT_TODO':
+        state.todos[action.index].name = action.name
+        return { todos: state.todos }
       default:
         return state
     }
@@ -62,6 +66,26 @@ const ToDoApp: React.FC = () => {
     dispatch({ type: 'ADD_TODO', todo: newTodo })
   }
 
+  const removeTodo = (index: number): void => {
+    dispatch({ type: 'REMOVE_TODO', index: index })
+  }
+
+  const toggleStatus = (index: number, checked: boolean) => {
+    dispatch({
+      type: 'TOGGLE_STATUS',
+      index: index,
+      checked: checked
+    })
+  }
+
+  const editTodo = (index: number, newName: string): void => {
+    dispatch({
+      type: 'EDIT_TODO',
+      index: index,
+      name: newName
+    })
+  }
+
   return (
     <div className="todo-app">
       <h1 className="todo-app-title">React ToDo App</h1>
@@ -70,15 +94,18 @@ const ToDoApp: React.FC = () => {
         onClick={(newTodoName) => addTodo(newTodoName)}
       />
 
-      <input
-        type="checkbox"
-        onChange={(e) => dispatch({ type: 'TOGGLE_ALL_STATUS', checked: e.target.checked })}
-      />Check All ToDos
+      <label>
+        <input
+          type="checkbox"
+          onChange={(e) => dispatch({ type: 'TOGGLE_ALL_STATUS', checked: e.target.checked })}
+        />Check All ToDos
+      </label>
 
       <ToDoList
         todos={state.todos}
-        onRemove={(i) => dispatch({ type: 'REMOVE_TODO', index: i })}
-        onToggleStatus={(i, checked) => dispatch({ type: 'TOGGLE_STATUS', index: i, checked: checked })}
+        onRemove={(i) => removeTodo(i)}
+        onToggleStatus={(i, checked) => toggleStatus(i, checked)}
+        onEdit={(i, newName) => editTodo(i, newName)}
       />
     </div>
   )

@@ -6,6 +6,7 @@ type Props = {
   todos: Array<ToDo>,
   onRemove: (index: number) => void,
   onToggleStatus: (index: number, checked: boolean) => void
+  onEdit: (index: number, newName: string) => void
 }
 
 const ToDoList: React.FC<Props> = (props: Props) => {
@@ -20,6 +21,9 @@ const ToDoList: React.FC<Props> = (props: Props) => {
 
         { todo.name }
 
+        <button onClick={() => props.onEdit(i, 'hoge')}>
+          Edit
+        </button>
         <button onClick={() => props.onRemove(i)}>
           Remove
         </button>
