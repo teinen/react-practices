@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import '../style/ToDoInput.css'
 
 type Props = {
   onClick: (todo: string) => void
@@ -13,16 +12,22 @@ const ToDoInput: React.FC<Props> = (props: Props) => {
     inputRef.current.value = ''
   }
 
+  const inputStyle = {
+    width: '280px',
+    marginRight: '16px'
+  }
+
   return (
-    <div className="todo-input-container">
+    <div className="siimple--text-center">
       <input
         ref={inputRef}
         type="text"
         placeholder="Input new todo"
-        className="todo-input"
+        style={inputStyle}
+        className="siimple-input siimple--bg-white"
       />
       <button
-        className="todo-add-btn"
+        className="siimple-btn siimple-btn--success"
         onClick={() => { clickHandler(inputRef.current.value) }}
       >
         Add

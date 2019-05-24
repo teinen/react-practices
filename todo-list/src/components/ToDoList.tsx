@@ -1,5 +1,4 @@
 import React from 'react'
-import '../style/ToDoList.css'
 import { ToDo } from '../types/todo'
 
 type Props = {

@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react'
-import '../style/ToDoApp.css'
 import ToDoInput from './ToDoInput'
 import ToDoList from './ToDoList'
 import { ToDo } from '../types/todo'
@@ -86,20 +85,34 @@ const ToDoApp: React.FC = () => {
     })
   }
 
+  const appStyle = {
+    maxWidth: '960px',
+    margin: 'auto'
+  }
+
   return (
-    <div className="todo-app">
-      <h1 className="todo-app-title">React ToDo App</h1>
+    <div className="siimple-box siimple--bg-dark" style={appStyle}>
+      <h1 className="siimple-box-title siimple--color-white siimple--text-center">
+        React ToDo App
+      </h1>
 
       <ToDoInput
         onClick={(newTodoName) => addTodo(newTodoName)}
       />
 
-      <label>
+      <label className="siimple-label siimple--color-white">
+        Check all todos:
+      </label>
+      <div className="siimple-checkbox">
         <input
           type="checkbox"
+          id="checkall"
           onChange={(e) => dispatch({ type: 'TOGGLE_ALL_STATUS', checked: e.target.checked })}
-        />Check All ToDos
-      </label>
+        />
+        <label htmlFor="checkall"></label>
+      </div>
+
+      <span className="siimple-rule"></span>
 
       <ToDoList
         todos={state.todos}
