@@ -9,21 +9,36 @@ type Props = {
 }
 
 const ToDoList: React.FC<Props> = (props: Props) => {
+  const listStyle = {
+    width: 'auto' // overwrite
+  }
+
   const renderTodos = props.todos.map((todo, i) => {
     return (
-      <li key={i}>
-        <input
-          type="checkbox"
-          checked={todo.completed}
-          onChange={(e) => props.onToggleStatus(i, e.target.checked)}
-        />
+      <li key={i} className="siimple-list-item">
+        <label className="siimple-label"></label>
+        <div className="siimple-checkbox">
+          <input
+            type="checkbox"
+            id={"checkTodo-" + i}
+            checked={todo.completed}
+            onChange={(e) => props.onToggleStatus(i, e.target.checked)}
+          />
+          <label htmlFor={"checkTodo-" + i}></label>
+        </div>
 
         { todo.name }
 
-        <button onClick={() => props.onEdit(i, 'hoge')}>
+        <button
+          className="siimple-btn siimple-btn--primary"
+          onClick={() => props.onEdit(i, 'hoge')}
+        >
           Edit
         </button>
-        <button onClick={() => props.onRemove(i)}>
+        <button
+          className="siimple-btn siimple-btn--error"
+          onClick={() => props.onRemove(i)}
+        >
           Remove
         </button>
       </li>
@@ -31,7 +46,7 @@ const ToDoList: React.FC<Props> = (props: Props) => {
   })
 
   return (
-    <ul>
+    <ul className="siimple-list" style={listStyle}>
       {renderTodos}
     </ul>
   )
