@@ -29,12 +29,12 @@ const ToDoList: React.FC<Props> = (props: Props) => {
 
         { todo.name }
 
-        <button
+        {/* <button
           className="siimple-btn siimple-btn--primary"
           onClick={() => props.onEdit(i, 'hoge')}
         >
           Edit
-        </button>
+        </button> */}
         <button
           className="siimple-btn siimple-btn--error"
           onClick={() => props.onRemove(i)}
