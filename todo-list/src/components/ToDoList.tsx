@@ -24,6 +24,9 @@ const ToDoList: React.FC<Props> = (props: Props) => {
     alignItems: 'center'
   }
 
+  const removeBtnStyle = {
+    marginLeft: '20px'
+  }
 
   const renderTodos = props.todos.map((todo, i) => {
     return (
@@ -46,15 +49,16 @@ const ToDoList: React.FC<Props> = (props: Props) => {
         </div>
 
         <div>
-          {/* <button
+          <button
             className="siimple-btn siimple-btn--primary"
             onClick={() => props.onEdit(i, 'hoge')}
           >
             Edit
-          </button> */}
+          </button>
           <button
             className="siimple-btn siimple-btn--error"
             onClick={() => props.onRemove(i)}
+            style={removeBtnStyle}
           >
             Remove
           </button>
