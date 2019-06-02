@@ -10,37 +10,55 @@ type Props = {
 
 const ToDoList: React.FC<Props> = (props: Props) => {
   const listStyle = {
-    width: 'auto' // overwrite
+    maxWidth: '90%'
   }
+
+  const listItemStyle = {
+    display: 'inline-flex',
+    justifyContent: 'space-between',
+    width: '100%'
+  }
+
+  const itemNameStyle = {
+    display: 'inline-flex',
+    alignItems: 'center'
+  }
+
 
   const renderTodos = props.todos.map((todo, i) => {
     return (
-      <li key={i} className="siimple-list-item">
-        <label className="siimple-label"></label>
-        <div className="siimple-checkbox">
-          <input
-            type="checkbox"
-            id={"checkTodo-" + i}
-            checked={todo.completed}
-            onChange={(e) => props.onToggleStatus(i, e.target.checked)}
-          />
-          <label htmlFor={"checkTodo-" + i}></label>
+      <li key={i} className="siimple-list-item" style={listItemStyle}>
+        <div style={itemNameStyle}>
+          <label className="siimple-label"></label>
+          <div className="siimple-checkbox">
+            <input
+              type="checkbox"
+              id={"checkTodo-" + i}
+              checked={todo.completed}
+              onChange={(e) => props.onToggleStatus(i, e.target.checked)}
+            />
+            <label htmlFor={"checkTodo-" + i}></label>
+          </div>
+
+          <span className="todo-name">
+            { todo.name }
+          </span>
         </div>
 
-        { todo.name }
-
-        {/* <button
-          className="siimple-btn siimple-btn--primary"
-          onClick={() => props.onEdit(i, 'hoge')}
-        >
-          Edit
-        </button> */}
-        <button
-          className="siimple-btn siimple-btn--error"
-          onClick={() => props.onRemove(i)}
-        >
-          Remove
-        </button>
+        <div>
+          {/* <button
+            className="siimple-btn siimple-btn--primary"
+            onClick={() => props.onEdit(i, 'hoge')}
+          >
+            Edit
+          </button> */}
+          <button
+            className="siimple-btn siimple-btn--error"
+            onClick={() => props.onRemove(i)}
+          >
+            Remove
+          </button>
+        </div>
       </li>
     )
   })
