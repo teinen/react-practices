@@ -29,6 +29,22 @@ const ToDoList: React.FC<Props> = (props: Props) => {
     marginLeft: '20px'
   }
 
+  const renderTodoName = (todo: ToDo) => {
+    if (todo.isEditing) {
+      return (
+        <input
+          type="text"
+          placeholder="ex) Buy milk"
+          className="siimple-input siimple--bg-white"
+        />
+      )
+    } else {
+      return (
+        <span>{ todo.name }</span>
+      )
+    }
+  }
+
   const renderEditButton = (todo: ToDo, index: number) => {
     if (todo.isEditing) {
       return (
@@ -66,19 +82,12 @@ const ToDoList: React.FC<Props> = (props: Props) => {
             <label htmlFor={"checkTodo-" + i}></label>
           </div>
 
-          <span className="todo-name">
-            { todo.name }
-          </span>
-          <input
-            type="text"
-            placeholder="ex) Buy milk"
-            // style={inputStyle}
-            className="siimple-input siimple--bg-white"
-          />
+          {renderTodoName(todo)}
         </div>
 
         <div>
           {renderEditButton(todo, i)}
+
           <button
             className="siimple-btn siimple-btn--error"
             onClick={() => props.onRemove(i)}
