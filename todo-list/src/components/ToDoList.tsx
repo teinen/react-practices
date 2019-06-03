@@ -4,7 +4,8 @@ import { ToDo } from '../types/todo'
 type Props = {
   todos: Array<ToDo>,
   onRemove: (index: number) => void,
-  onToggleStatus: (index: number, checked: boolean) => void
+  onToggleStatus: (index: number, checked: boolean) => void,
+  onToggleEditing: (index: number, isEditing: boolean) => void,
   onEdit: (index: number, newName: string) => void
 }
 
@@ -28,6 +29,28 @@ const ToDoList: React.FC<Props> = (props: Props) => {
     marginLeft: '20px'
   }
 
+  const renderEditButton = (todo: ToDo, index: number) => {
+    if (todo.isEditing) {
+      return (
+        <button
+          className="siimple-btn siimple-btn--success"
+          onClick={() => props.onEdit(index, 'hoge')}
+        >
+          Update
+        </button>
+      )
+    } else {
+      return (
+        <button
+          className="siimple-btn siimple-btn--primary"
+          onClick={() => props.onToggleEditing(index, !todo.isEditing)}
+        >
+          Edit
+        </button>
+      )
+    }
+  }
+
   const renderTodos = props.todos.map((todo, i) => {
     return (
       <li key={i} className="siimple-list-item" style={listItemStyle}>
@@ -46,15 +69,16 @@ const ToDoList: React.FC<Props> = (props: Props) => {
           <span className="todo-name">
             { todo.name }
           </span>
+          <input
+            type="text"
+            placeholder="ex) Buy milk"
+            // style={inputStyle}
+            className="siimple-input siimple--bg-white"
+          />
         </div>
 
         <div>
-          <button
-            className="siimple-btn siimple-btn--primary"
-            onClick={() => props.onEdit(i, 'hoge')}
-          >
-            Edit
-          </button>
+          {renderEditButton(todo, i)}
           <button
             className="siimple-btn siimple-btn--error"
             onClick={() => props.onRemove(i)}

@@ -11,6 +11,7 @@ type Action =
   | { type: 'ADD_TODO', todo: ToDo }
   | { type: 'REMOVE_TODO', index: number }
   | { type: 'TOGGLE_STATUS', index: number, checked: boolean }
+  | { type: 'TOGGLE_EDITING', index: number, isEditing: boolean }
   | { type: 'TOGGLE_ALL_STATUS', checked: boolean }
   | { type: 'EDIT_TODO', index: number, name: string }
 
@@ -18,7 +19,8 @@ const initialState: State = {
   todos: [
     {
       name: 'Sample todo',
-      completed: false
+      completed: false,
+      isEditing: false
     }
   ]
 }
@@ -38,6 +40,9 @@ const ToDoApp: React.FC = () => {
         return { todos: state.todos }
       case 'TOGGLE_STATUS':
         state.todos[action.index].completed = action.checked
+        return { todos: state.todos }
+      case 'TOGGLE_EDITING':
+        state.todos[action.index].isEditing = action.isEditing
         return { todos: state.todos }
       case 'TOGGLE_ALL_STATUS':
         return { todos: state.todos.map(todo => {
@@ -60,7 +65,8 @@ const ToDoApp: React.FC = () => {
   const addTodo = (newTodoName: string): void => {
     const newTodo: ToDo = {
       name: newTodoName,
-      completed: false
+      completed: false,
+      isEditing: false
     }
     dispatch({ type: 'ADD_TODO', todo: newTodo })
   }
@@ -74,6 +80,14 @@ const ToDoApp: React.FC = () => {
       type: 'TOGGLE_STATUS',
       index: index,
       checked: checked
+    })
+  }
+
+  const toggleEditing = (index: number, isEditing: boolean) => {
+    dispatch({
+      type: 'TOGGLE_EDITING',
+      index: index,
+      isEditing: isEditing
     })
   }
 
@@ -118,6 +132,7 @@ const ToDoApp: React.FC = () => {
         todos={state.todos}
         onRemove={(i) => removeTodo(i)}
         onToggleStatus={(i, checked) => toggleStatus(i, checked)}
+        onToggleEditing={(i, isEditing) => toggleEditing(i, isEditing)}
         onEdit={(i, newName) => editTodo(i, newName)}
       />
     </div>

@@ -1,4 +1,5 @@
 export declare type ToDo = {
   name: string,
-  completed: boolean
+  completed: boolean,
+  isEditing: boolean
 }
