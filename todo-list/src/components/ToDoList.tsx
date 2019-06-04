@@ -29,18 +29,20 @@ const ToDoList: React.FC<Props> = (props: Props) => {
     marginLeft: '20px'
   }
 
-  const renderTodoName = (todo: ToDo) => {
+  const renderTodoName = (todo: ToDo, index: number) => {
     if (todo.isEditing) {
       return (
         <input
           type="text"
+          defaultValue={todo.name}
+          id={"todoInput-" + index}
           placeholder="ex) Buy milk"
           className="siimple-input siimple--bg-white"
         />
       )
     } else {
       return (
-        <span>{ todo.name }</span>
+        <span>{todo.name}</span>
       )
     }
   }
@@ -50,7 +52,10 @@ const ToDoList: React.FC<Props> = (props: Props) => {
       return (
         <button
           className="siimple-btn siimple-btn--success"
-          onClick={() => props.onEdit(index, 'hoge')}
+          onClick={() => {
+            props.onEdit(index, (document.getElementById('todoInput-' + index) as HTMLInputElement).value)
+            props.onToggleEditing(index, !todo.isEditing)
+          }}
         >
           Update
         </button>
@@ -82,7 +87,7 @@ const ToDoList: React.FC<Props> = (props: Props) => {
             <label htmlFor={"checkTodo-" + i}></label>
           </div>
 
-          {renderTodoName(todo)}
+          {renderTodoName(todo, i)}
         </div>
 
         <div>
