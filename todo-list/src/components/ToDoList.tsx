@@ -41,8 +41,13 @@ const ToDoList: React.FC<Props> = (props: Props) => {
         />
       )
     } else {
+      const completedStyle = {
+        textDecoration: 'line-through'
+      }
+      const todoNameStyle = todo.completed ? completedStyle : {}
+
       return (
-        <span>{todo.name}</span>
+        <span style={todoNameStyle}>{todo.name}</span>
       )
     }
   }
